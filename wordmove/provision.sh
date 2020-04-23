@@ -2,6 +2,8 @@
 
 # Rubygems update
 
+sudo -i
+
 if [ $(gem -v|grep '^2.') ]; then
 	echo "gem installed"
 else
