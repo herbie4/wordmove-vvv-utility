@@ -14,7 +14,7 @@ utilities:
     - wordmove
 utility-sources:
   wordmove:
-    repo: https://github.com/example/java-utilities.git
+    repo: https://github.com/herbie4/wordmove-vvv-utility.git
     branch: master
 ```
 
