@@ -5,11 +5,11 @@
 if [ $(gem -v|grep '^2.') ]; then
 	echo "gem installed"
 else
-	apt-get install -y ruby-dev
+	sudo apt-get install -y ruby-dev
 	echo "ruby-dev installed"
 	echo "gem not installed"
-	gem install rubygems-update
-	update_rubygems
+	sudo gem install rubygems-update
+	sudo update_rubygems
 fi
 
 # wordmove install
@@ -18,7 +18,7 @@ if [ "$wordmove_install" = true ]; then
   echo "wordmove installed"
 else
   echo "wordmove not installed"
-  sudo gem install wordmove
+  sudo gem install wordmove -v 4.0.1
 
   wordmove_path="$(gem which wordmove | sed -s 's/.rb/\/deployer\/base.rb/')"
   if [  "$(grep yaml $wordmove_path)" ]; then
@@ -29,7 +29,7 @@ else
     echo "can't require yaml"
     echo "set require yaml"
 
-    sed -i "7i require\ \'yaml\'" $wordmove_path
+    sudo sed -i "7i require\ \'yaml\'" $wordmove_path
 
     echo "can require yaml"
 
