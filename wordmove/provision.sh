@@ -1,37 +1,81 @@
 #!/usr/bin/env bash
 
-# Rubygems update
+# https://github.com/joeguilmette/ee-vvv-wordmove/
 
-if [ $(gem -v|grep '^2.') ]; then
-	echo "gem installed"
+if ! type rvm >/dev/null 2>&1; then
+
+	echo 'rvm not installed - installing'
+
+	curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+	
+	curl -L https://get.rvm.io | bash -s stable
+
+	source /home/vagrant/.rvm/scripts/rvm
+
 else
-	apt-get install -y ruby-dev
-	echo "ruby-dev installed"
-	echo "gem not installed"
-	gem install rubygems-update
-	update_rubygems
+
+	echo 'rvm already installed'
+
+	source /home/vagrant/.rvm/scripts/rvm
+
 fi
 
-# wordmove install
-wordmove_install="$(gem list wordmove -i)"
-if [ "$wordmove_install" = true ]; then
-  echo "wordmove installed"
+if ! rvm list rubies ruby | grep ruby-$1; then
+	
+	echo 'ruby-'.$1.' not installed - installing'
+	rvm install $1
+
+fi
+
+echo 'trying to use ruby-'.$1
+rvm --default use $1
+
+if [ $(gem -v | grep '^2.') ]; then
+
+	echo "ruby-gem installed"
+
 else
-  echo "wordmove not installed"
-  sudo gem install wordmove
 
-  wordmove_path="$(gem which wordmove | sed -s 's/.rb/\/deployer\/base.rb/')"
-  if [  "$(grep yaml $wordmove_path)" ]; then
+	echo "ruby-gem not installed - installing"
 
+	gemdir 2.0.0
 
-    echo "can require yaml"
-  else
-    echo "can't require yaml"
-    echo "set require yaml"
+	gem install rubygems-update --no-rdoc --no-ri
 
-    sed -i "7i require\ \'yaml\'" $wordmove_path
+	update_rubygems
 
-    echo "can require yaml"
+	echo 'gem: --no-rdoc --no-ri' > ~/.gemrc
 
-  fi
+fi
+
+wordmove_install="$(gem list wordmove -i)"
+
+if [ "$wordmove_install" = true ]; then
+
+	echo "wordmove installed"
+
+else
+
+	echo "wordmove not installed"
+
+	# once photocopier goes 1.0 we can just install base wordmove
+	gem install wordmove --pre
+
+	wordmove_path="$(gem which wordmove | sed -s 's/.rb/\/deployer\/base.rb/')"
+
+	if [ "$(grep yaml $wordmove_path)" ]; then
+
+		echo "can require YAML"
+
+	else
+
+		echo "can't require YAML"
+
+		echo "Set require YAML"
+
+		sed -i "7i require\ \'YAML\'" $wordmove_path
+
+		echo "Can require YAML"
+
+	fi
 fi
