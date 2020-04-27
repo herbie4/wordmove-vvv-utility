@@ -5,12 +5,12 @@
 if [ $(gem -v|grep '^2.') ]; then
 	echo "gem installed"
 else
-	sudo apt-get install -y ruby-dev
+	apt-get install -y ruby-dev
 	echo "ruby-dev installed"
 	echo "gem not installed"
-	sudo gem install rubygems-update
-	sudo update_rubygems
-	sudo gem update --system 3.0.6
+	gem install rubygems-update
+	update_rubygems
+	gem update --system 3.0.6
 fi
 
 # wordmove install
@@ -19,7 +19,7 @@ if [ "$wordmove_install" = true ]; then
   echo "wordmove installed"
 else
   echo "wordmove not installed"
-  sudo gem install wordmove -v 4.0.1
+  gem install wordmove -v 4.0.1
 
   wordmove_path="$(gem which wordmove | sed -s 's/.rb/\/deployer\/base.rb/')"
   if [  "$(grep yaml $wordmove_path)" ]; then
