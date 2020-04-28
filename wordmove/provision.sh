@@ -11,6 +11,7 @@ else
 	gem install rubygems-update
 	update_rubygems
 	gem update --system 3.0.6
+	gem pristine rake
 fi
 
 # wordmove install
