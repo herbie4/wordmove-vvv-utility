@@ -1,5 +1,11 @@
 # wordmove vvv utility
  Wordmove utility for VVV
+ 
+ Better to use this option: https://github.com/welaika/vvv-wordmove
+ 
+ -----
+ # OUTDATED
+
  This utility will set up [Wordmove](https://github.com/welaika/wordmove/) on your [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV).
  It will install WordMove version 4.0.1.
  
