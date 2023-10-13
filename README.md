@@ -1,7 +1,8 @@
-# wordmove vvv utility
+# wordmove vvv utility (outdated)
  Wordmove utility for VVV
  
- Better to use this option: https://github.com/welaika/vvv-wordmove
+ ~~Better to use this option: https://github.com/welaika/vvv-wordmove~~
+ But nowadays it is already included in VVV.
  
  -----
  # OUTDATED
